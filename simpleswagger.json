@@ -1,0 +1,116 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v1",
+		"title": "Employee Api",
+		"description": "Api for employees",
+		"termsOfService": "None",
+		"contact": {
+			"name": "Sage People",
+			"url": "www.sage.com",
+			"email": "contact@sage.com"
+		}
+	},
+	"paths": {
+		"/api/Employee/newJoiners": {
+			"get": {
+				"tags": [
+					"Employee"
+				],
+				"operationId": "ApiGetEmployeeNewJoiners",
+				"consumes": [],
+				"produces": [
+					"text/plain",
+					"application/json",
+					"text/json"
+				],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"/api/Employee/active": {
+			"get": {
+				"tags": [
+					"Employee"
+				],
+				"operationId": "ApiGetEmployeeActive",
+				"consumes": [],
+				"produces": [
+					"text/plain",
+					"application/json",
+					"text/json"
+				],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"/api/Employee/leavers": {
+			"get": {
+				"tags": [
+					"Employee"
+				],
+				"operationId": "ApiGetEmployeeLeavers",
+				"consumes": [],
+				"produces": [
+					"text/plain",
+					"application/json",
+					"text/json"
+				],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"/api/Employee/.*": {
+			"get": {
+				"tags": [
+					"Employee"
+				],
+				"operationId": "ApiGetEmployeeById",
+				"consumes": [],
+				"produces": [
+					"text/plain",
+					"application/json",
+					"text/json"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {}
+}

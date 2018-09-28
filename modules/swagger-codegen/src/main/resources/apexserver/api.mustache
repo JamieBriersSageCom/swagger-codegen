@@ -1,0 +1,50 @@
+//package: {{package}}
+
+{{#operations}}
+
+@RestResource(urlMapping='{{{pathPrefix}}}/*')
+global with sharing class {{classname}}Controller {
+
+	@HttpGet
+	global static string Get(){
+		{{#allParams}}
+		{{dataType}} {{paramName}} = null;
+		{{/allParams}}
+			
+        String path = req.requesturi.substring(req.requesturi.lastindexof('/{{{pathPrefix}}}/')+1);
+		if (1=0){}
+        {{#operation}}
+        else if(Pattern.matches('{{{contextPath}}}', path)){
+            {{operationId}}Handler(path);
+        }
+        {{/operation}}
+        else{}
+	}
+
+	
+{{#operation}}
+	//{{operationId}}
+	private static {{returnType}} {{operationId}}Handler(String path){
+        {{#hasParams}}
+        path = path.replace('.*/{{{contextPath}}}/','');
+        String[] args = path.split("/");
+        {{#allParams}}
+        {{dataType}} {{paramName}} = args.remove(args.size()-1);
+        {{/allParams}}
+        {{/hasParams}}
+	    return {{operationId}}({{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+	}
+	
+{{/operation}}
+
+
+{{#operation}}
+	//{{operationId}}
+	private static {{returnType}} {{operationId}}({{#allParams}}{{dataType}} {{paramName}} {{#hasMore}}, {{/hasMore}}{{/allParams}}){
+        //Do the thing!
+        return null;
+	}
+
+{{/operation}}
+}
+{{/operations}}

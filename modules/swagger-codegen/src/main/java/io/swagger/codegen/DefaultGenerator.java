@@ -454,12 +454,12 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
         for (String tag : paths.keySet()) {
             try {
                 List<CodegenOperation> ops = paths.get(tag);
-                Collections.sort(ops, new Comparator<CodegenOperation>() {
-                    @Override
-                    public int compare(CodegenOperation one, CodegenOperation another) {
-                        return ObjectUtils.compare(one.operationId, another.operationId);
-                    }
-                });
+//                Collections.sort(ops, new Comparator<CodegenOperation>() {
+//                    @Override
+//                    public int compare(CodegenOperation one, CodegenOperation another) {
+//                        //return ObjectUtils.compare(one.operationId, another.operationId);
+//                    }
+//                });
                 Map<String, Object> operation = processOperations(config, tag, ops, allModels);
 
                 operation.put("basePath", basePath);
