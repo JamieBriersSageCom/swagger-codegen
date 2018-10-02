@@ -1,10 +1,7 @@
 package io.swagger.codegen.languages;
 
 import io.swagger.codegen.*;
-import io.swagger.models.Info;
-import io.swagger.models.Model;
-import io.swagger.models.Operation;
-import io.swagger.models.Swagger;
+import io.swagger.models.*;
 import io.swagger.models.parameters.Parameter;
 import io.swagger.models.properties.*;
 import org.slf4j.Logger;
@@ -261,6 +258,32 @@ public class ApexServerCodegen extends AbstractJavaCodegen {
 			generateAntSupportingFiles();
 		}
 
+		/*if (swagger.getPaths() != null) {
+			for (String pathname : swagger.getPaths().keySet()) {
+				Path path = swagger.getPath(pathname);
+				if (path.getOperations() != null) {
+					for (Operation operation : path.getOperations()) {
+						if (operation.getTags() != null) {
+							List<Map<String, String>> tags = new ArrayList<Map<String, String>>();
+							for (String tag : operation.getTags()) {
+								Map<String, String> value = new HashMap<String, String>();
+								value.put("tag", tag);
+								value.put("hasMore", "true");
+								tags.add(value);
+							}
+							if (tags.size() > 0) {
+								tags.get(tags.size() - 1).remove("hasMore");
+							}
+							if (operation.getTags().size() > 0) {
+								//String tag = operation.getTags().get(0);
+								operation.setTags(Arrays.asList(tags));
+							}
+							operation.setVendorExtension("x-tags", tags);
+						}
+					}
+				}
+			}
+		}*/
 
 
 	}

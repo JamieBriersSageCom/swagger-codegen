@@ -1,8 +1,6 @@
-//package: {{package}}
-
 {{#operations}}
 
-@RestResource(urlMapping='{{{pathPrefix}}}/*')
+@RestResource(urlMapping='/{{{pathPrefix}}}/*')
 global with sharing class {{classname}}Controller {
 
 	@HttpGet
@@ -10,15 +8,22 @@ global with sharing class {{classname}}Controller {
 		{{#allParams}}
 		{{dataType}} {{paramName}} = null;
 		{{/allParams}}
-			
-        String path = req.requesturi.substring(req.requesturi.lastindexof('/{{{pathPrefix}}}/')+1);
-		if (1=0){}
+		String pathPrefix = '/{{{pathPrefix}}}';
+		String requestUri = RestContext.request.requestURI;
+		if(!requestUri.endsWith('/')){
+		    requestUri = requestUri + '/';
+		}
+
+        String path = requestUri.substringAfter(pathPrefix);
+		if (false){}
         {{#operation}}
-        else if(Pattern.matches('{{{contextPath}}}', path)){
-            {{operationId}}Handler(path);
+        else if(Pattern.matches('{{{path}}}{{#hasParams}}.*{{/hasParams}}$', path)){
+            String params = path.substringAfter('{{{path}}}');
+            return {{operationId}}Handler(params);
         }
         {{/operation}}
         else{}
+        return 'failed';
 	}
 
 	
@@ -26,11 +31,16 @@ global with sharing class {{classname}}Controller {
 	//{{operationId}}
 	private static {{returnType}} {{operationId}}Handler(String path){
         {{#hasParams}}
-        path = path.replace('.*/{{{contextPath}}}/','');
-        String[] args = path.split("/");
-        {{#allParams}}
-        {{dataType}} {{paramName}} = args.remove(args.size()-1);
-        {{/allParams}}
+        if(!path.endsWith('/')){
+            path = path.substringBeforeLast('/');
+        }
+        String[] args = path.split('/');
+        {{#pathParams}}
+        {{dataType}} {{paramName}} = args.remove(0);
+        {{/pathParams}}
+        {{#queryParams}}
+        {{dataType}} {{paramName}} = RestContext.request.params.get('{{paramName}}');
+        {{/queryParams}}
         {{/hasParams}}
 	    return {{operationId}}({{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
 	}
@@ -42,7 +52,7 @@ global with sharing class {{classname}}Controller {
 	//{{operationId}}
 	private static {{returnType}} {{operationId}}({{#allParams}}{{dataType}} {{paramName}} {{#hasMore}}, {{/hasMore}}{{/allParams}}){
         //Do the thing!
-        return null;
+        return '{{operationId}}';
 	}
 
 {{/operation}}

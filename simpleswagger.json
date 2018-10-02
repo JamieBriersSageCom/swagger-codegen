@@ -7,12 +7,12 @@
 		"termsOfService": "None",
 		"contact": {
 			"name": "Sage People",
-			"url": "www.sage.com",
+			"url": "https://www.sage.com",
 			"email": "contact@sage.com"
 		}
 	},
 	"paths": {
-		"/api/Employee/newJoiners": {
+		"/newJoiners/": {
 			"get": {
 				"tags": [
 					"Employee"
@@ -35,7 +35,7 @@
 				}
 			}
 		},
-		"/api/Employee/active": {
+		"/active/": {
 			"get": {
 				"tags": [
 					"Employee"
@@ -58,7 +58,7 @@
 				}
 			}
 		},
-		"/api/Employee/leavers": {
+		"/leavers/": {
 			"get": {
 				"tags": [
 					"Employee"
@@ -70,7 +70,25 @@
 					"application/json",
 					"text/json"
 				],
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "fromDate",
+						"in": "query",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "toDate",
+						"in": "query",
+						"required": true,
+						"type": "string"
+					},{
+						"name": "test",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -81,7 +99,7 @@
 				}
 			}
 		},
-		"/api/Employee/.*": {
+		"/": {
 			"get": {
 				"tags": [
 					"Employee"
